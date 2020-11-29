@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.LoginActivity"
+    android:id="@+id/main"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="12">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/df_danger"
+            android:layout_weight="6"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imageViewLogo"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:src="@drawable/logo"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:textStyle="normal"
+                android:textSize="28sp"
+                android:layout_width="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:fontFamily="@font/font2"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="6"
+            android:gravity="center"
+            android:background="@color/formBg"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:id="@+id/sendOtpLayout"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="visible">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/eLogin"
+                    android:layout_width="match_parent"
+                    app:errorEnabled="true"
+                    android:layout_marginHorizontal="45dp"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="10dp">
+
+                    <EditText
+                        android:id="@+id/login"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/number"
+                        android:fontFamily="@font/font1"
+                        android:inputType="phone"
+                        android:singleLine="true"
+                        android:maxLength="12"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ePassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="45dp"
+                    app:errorEnabled="true"
+                    app:passwordToggleEnabled="true"
+                    android:paddingVertical="10dp">
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/password"
+                        android:fontFamily="@font/font1"
+                        android:inputType="textPassword"
+                        android:singleLine="true" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/sendLogIn"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginHorizontal="45dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:background="@drawable/round_button"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/font2"
+                    android:text="@string/enter"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
+                <ProgressBar
+                    android:id="@+id/progressSendingOtp"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_marginTop="24dp"
+                    android:textColor="@color/df_blue"
+                    android:text="@string/register"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="registerNow"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
