@@ -1,5 +1,6 @@
 package com.example.mobileoilstation;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -51,7 +52,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             cm.registerDefaultNetworkCallback(new NetworkCallback() {
                 @Override
-                public void onAvailable(Network network) {
+                public void onAvailable(@NonNull Network network) {
                     new Timer().schedule(new TimerTask() {
                         @Override
                         public void run() {
@@ -61,7 +62,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onLost(Network network) {
+                public void onLost(@NonNull Network network) {
                     showToastAboutLossInternet();
                 }
             });
@@ -97,11 +98,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                     }
                     if (!checkFirstStart() && isOnline(SplashScreenActivity.this)) {
                         startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));
-                        cm.registerDefaultNetworkCallback(null);
                         finish();
                     } else if (!checkToken() && isOnline(SplashScreenActivity.this)) {
-                        startActivity(new Intent(SplashScreenActivity.this, RegistrationActivity.class));
-                        cm.registerDefaultNetworkCallback(null);
                         finish();
                     }
                 } catch (Exception ex) {
@@ -125,7 +123,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         if (back_pressed + 1000 > System.currentTimeMillis()) {
             finish();
         } else {
-            Toast.makeText(getBaseContext(), "Press once again to exit!",
+            Toast.makeText(this, "Press once again to exit!",
                     Toast.LENGTH_SHORT).show();
         }
         back_pressed = System.currentTimeMillis();

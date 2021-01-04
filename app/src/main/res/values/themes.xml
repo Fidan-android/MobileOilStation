@@ -3,4 +3,13 @@
     <style name="Theme.MobileOilStation" parent="Theme.AppCompat.Light.NoActionBar"/>
 
     <style name="mProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal"/>
+
+    <style name="mSpinner" parent="Widget.AppCompat.Light.DropDownItem.Spinner">
+        <item name="android:fontFamily">@font/font1</item>
+        <item name="background">@color/white</item>
+    </style>
+
+    <style name="mEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:fontFamily">@font/font1</item>
+    </style>
 </resources>
