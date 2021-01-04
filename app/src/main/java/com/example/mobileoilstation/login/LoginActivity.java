@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void registerNow(View view){
         startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
-        finish();
+        this.finish();
     }
 
     private long backPressed = 0;

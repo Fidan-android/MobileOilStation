@@ -1,6 +1,12 @@
 package com.example.mobileoilstation.registration;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.media.VolumeShaper;
@@ -16,6 +22,9 @@ import android.widget.VideoView;
 import com.example.mobileoilstation.R;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -25,9 +34,11 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         TabLayout tabLayout = findViewById(R.id.tabs);
-        ViewPager2 viewPager2 = findViewById(R.id.viewpager);
+        ViewPager viewPager = findViewById(R.id.viewpager);
 
+        this.prepareViewPager(viewPager);
 
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     private long backPressed = 0;
@@ -39,5 +50,46 @@ public class RegistrationActivity extends AppCompatActivity {
             Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
         }
         backPressed = System.currentTimeMillis();
+    }
+
+    private void prepareViewPager(ViewPager viewPager){
+        ViewAdapter adapter = new ViewAdapter(getSupportFragmentManager());
+
+        adapter.addFragment(new UserFragment(), "Физическое лицо");
+        adapter.addFragment(new CompanyFragment(), "Компания");
+
+        viewPager.setAdapter(adapter);
+    }
+
+    public static class ViewAdapter extends FragmentPagerAdapter {
+
+        ArrayList<String> titles = new ArrayList<>();
+        List<Fragment> fragments = new ArrayList<>();
+
+        public void addFragment(Fragment fragment, String title){
+            this.titles.add(title);
+            this.fragments.add(fragment);
+        }
+
+        public ViewAdapter(FragmentManager fm){
+            super(fm);
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            return this.fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return this.fragments.size();
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return this.titles.get(position);
+        }
     }
 }
