@@ -25,7 +25,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/enter_form">
+            android:layout_below="@id/enter_form"
+            android:layout_marginTop="10dp">
             <RelativeLayout
                 android:id="@+id/container"
                 android:layout_width="match_parent"
@@ -166,8 +167,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
-                    android:paddingHorizontal="45dp"
-                    android:layout_marginTop="15dp"
+                    android:paddingHorizontal="60dp"
+                    android:layout_marginTop="20dp"
                     android:textAllCaps="false"
                     android:fontFamily="@font/font1"
                     android:layout_below="@id/d_password"
@@ -181,7 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:textSize="16sp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="30dp"
                     android:textColor="@color/df_blue"
                     android:text="@string/login"
                     android:clickable="true"
