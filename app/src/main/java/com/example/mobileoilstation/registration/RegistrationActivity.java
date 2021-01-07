@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.media.VolumeShaper;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.mobileoilstation.R;
+import com.example.mobileoilstation.login.LoginActivity;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -31,6 +34,7 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_registration);
 
         TabLayout tabLayout = findViewById(R.id.tabs);
@@ -39,6 +43,11 @@ public class RegistrationActivity extends AppCompatActivity {
         this.prepareViewPager(viewPager);
 
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    public void registerNow(View view){
+        startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+        finish();
     }
 
     private long backPressed = 0;

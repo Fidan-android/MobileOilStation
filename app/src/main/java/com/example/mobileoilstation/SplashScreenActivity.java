@@ -39,8 +39,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setContentView(R.layout.activity_splash_screen);
 
         mProgressBar = (ProgressBar) findViewById(R.id.splash_screen_progress_bar);
         Drawable progressDrawable = mProgressBar.getProgressDrawable().mutate();

@@ -20,4 +20,10 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_hint">Введите E-mail</string>
+    <string name="enter_form">Заполните форму регистрации</string>
+    <string name="phone_hint">Введите телефон</string>
+    <string name="name_hint">Введите своё Имя</string>
+    <string name="password_hint">Придумайте пароль</string>
+    <string name="d_password_hint">Повторите пароль</string>
 </resources>
