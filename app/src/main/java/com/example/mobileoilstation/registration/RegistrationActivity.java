@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -45,7 +46,7 @@ public class RegistrationActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    public void registerNow(View view){
+    public void logIn(View view){
         startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
         finish();
     }
@@ -68,6 +69,20 @@ public class RegistrationActivity extends AppCompatActivity {
         adapter.addFragment(new CompanyFragment(), "Компания");
 
         viewPager.setAdapter(adapter);
+    }
+
+    public void registerNow(View view) {
+        String email = ((EditText) findViewById(R.id.login)).getText().toString();
+        String password = ((EditText) findViewById(R.id.password)).getText().toString();
+        String dPassword = ((EditText) findViewById(R.id.d_password)).getText().toString();
+        String phone = ((EditText) findViewById(R.id.phone)).getText().toString();
+        String name = ((EditText) findViewById(R.id.name)).getText().toString();
+
+        if (!(email.matches("^([a-z0-9]+)@[a-z]+\\.[a-z]{1,3}$"))){
+            
+        } else {
+
+        }
     }
 
     public static class ViewAdapter extends FragmentPagerAdapter {

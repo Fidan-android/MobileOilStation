@@ -26,13 +26,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/enter_form"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp">
             <RelativeLayout
                 android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="20dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/login_hint"
@@ -52,11 +52,16 @@
                     android:layout_height="match_parent"
                     android:layout_below="@id/login_hint"
                     android:textSize="20sp"
+                    android:hint="@string/example_email"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/ic_email"
+                    android:drawableTint="@color/black"
                     android:layout_marginHorizontal="25dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/font1"
                     android:background="@drawable/border_et"
-                    android:padding="10dp"/>
+                    android:padding="10dp"
+                    tools:ignore="UnusedAttribute" />
 
                 <TextView
                     android:id="@+id/phone_hint"
@@ -77,12 +82,17 @@
                     android:layout_height="match_parent"
                     android:layout_below="@id/phone_hint"
                     android:textSize="20sp"
-                    android:inputType="phone"
+                    android:drawablePadding="10dp"
+                    android:inputType="phone|number"
+                    android:drawableStart="@drawable/ic_phone"
+                    android:drawableTint="@color/black"
+                    android:hint="@string/example_phone"
                     android:layout_marginHorizontal="25dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/font1"
                     android:background="@drawable/border_et"
-                    android:padding="10dp"/>
+                    android:padding="10dp"
+                    tools:ignore="UnusedAttribute" />
 
                 <TextView
                     android:id="@+id/name_hint"
@@ -104,11 +114,15 @@
                     android:layout_below="@id/name_hint"
                     android:textSize="20sp"
                     android:inputType="phone"
+                    android:drawableStart="@drawable/ic_name"
+                    android:drawableTint="@color/black"
+                    android:drawablePadding="10dp"
                     android:layout_marginHorizontal="25dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/font1"
                     android:background="@drawable/border_et"
-                    android:padding="10dp"/>
+                    android:padding="10dp"
+                    tools:ignore="UnusedAttribute" />
 
                 <TextView
                     android:id="@+id/password_hint"
@@ -122,19 +136,27 @@
                     android:textSize="18sp"
                     android:fontFamily="@font/font1"/>
 
-                <EditText
-                    android:id="@+id/password"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/e_password"
                     android:layout_width="match_parent"
-                    android:theme="@style/mEditText"
                     android:layout_height="match_parent"
+                    app:passwordToggleEnabled="true"
                     android:layout_below="@id/password_hint"
-                    android:textSize="20sp"
-                    android:inputType="textPassword"
-                    android:layout_marginHorizontal="25dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/font1"
-                    android:background="@drawable/border_et"
-                    android:padding="10dp"/>
+                    android:layout_marginHorizontal="25dp">
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:theme="@style/mEditText"
+                        android:layout_height="match_parent"
+                        android:textSize="20sp"
+                        android:inputType="textPassword"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/font1"
+                        android:drawablePadding="10dp"
+                        android:maxLength="10"
+                        android:background="@drawable/border_et"
+                        android:padding="10dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:id="@+id/hint_d_password"
@@ -143,24 +165,32 @@
                     android:text="@string/d_password_hint"
                     android:layout_marginTop="15dp"
                     android:layout_marginStart="25dp"
-                    android:layout_below="@id/password"
+                    android:layout_below="@id/e_password"
                     android:textColor="@color/black_alpha_75"
                     android:textSize="18sp"
                     android:fontFamily="@font/font1"/>
 
-                <EditText
-                    android:id="@+id/d_password"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/e_d_password"
                     android:layout_width="match_parent"
-                    android:theme="@style/mEditText"
                     android:layout_height="match_parent"
+                    app:passwordToggleEnabled="true"
                     android:layout_below="@id/hint_d_password"
-                    android:textSize="20sp"
-                    android:inputType="textPassword"
-                    android:layout_marginHorizontal="25dp"
                     android:layout_marginTop="10dp"
-                    android:fontFamily="@font/font1"
-                    android:background="@drawable/border_et"
-                    android:padding="10dp"/>
+                    android:layout_marginHorizontal="25dp">
+                    <EditText
+                        android:id="@+id/d_password"
+                        android:layout_width="match_parent"
+                        android:theme="@style/mEditText"
+                        android:layout_height="match_parent"
+                        android:textSize="20sp"
+                        android:drawablePadding="10dp"
+                        android:maxLength="10"
+                        android:inputType="textPassword"
+                        android:fontFamily="@font/font1"
+                        android:background="@drawable/border_et"
+                        android:padding="10dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/sendPhone"
@@ -171,11 +201,14 @@
                     android:layout_marginTop="20dp"
                     android:textAllCaps="false"
                     android:fontFamily="@font/font1"
-                    android:layout_below="@id/d_password"
+                    android:layout_below="@id/e_d_password"
                     android:background="@drawable/round_button"
                     android:text="@string/next"
                     android:textColor="@color/white"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="registerNow"/>
 
                 <TextView
                     android:id="@+id/back_login"
@@ -188,7 +221,7 @@
                     android:clickable="true"
                     android:fontFamily="@font/font1"
                     android:focusable="true"
-                    android:onClick="registerNow"
+                    android:onClick="logIn"
                     android:layout_below="@id/sendPhone"
                     android:layout_centerHorizontal="true" />
             </RelativeLayout>
