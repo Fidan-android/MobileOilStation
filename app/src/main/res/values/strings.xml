@@ -1,3 +1,31 @@
 <resources>
-    <string name="app_name">MobileOilStation</string>
+    <string name="app_name">Мобильная АЗС</string>
+    <string name="password">Password</string>
+    <string name="number">Number</string>
+    <string name="enter">Войти</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="next">Дальше</string>
+    <string name="enter_number">Введите номер телефона</string>
+    <string name="login">Уже есть аккаунт? Войти</string>
+    <string-array name="type_account">
+        <item>
+            Выберите тип аккаунта
+        </item>
+        <item>
+            Физическое лицо
+        </item>
+        <item>
+            Компания
+        </item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_hint">Введите E-mail</string>
+    <string name="enter_form">Заполните форму регистрации</string>
+    <string name="phone_hint">Введите телефон (без +7\8)</string>
+    <string name="name_hint">Введите своё Имя</string>
+    <string name="password_hint">Придумайте пароль</string>
+    <string name="d_password_hint">Повторите пароль</string>
+    <string name="example_email">example123@mail.ru</string>
+    <string name="example_phone">+7 (xxx) xxx-xx-xx</string>
 </resources>
