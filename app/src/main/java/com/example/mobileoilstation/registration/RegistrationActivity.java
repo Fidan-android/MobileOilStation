@@ -23,6 +23,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.mobileoilstation.R;
+import com.example.mobileoilstation.classes.User;
 import com.example.mobileoilstation.login.LoginActivity;
 import com.google.android.material.tabs.TabLayout;
 
@@ -44,6 +45,9 @@ public class RegistrationActivity extends AppCompatActivity {
         this.prepareViewPager(viewPager);
 
         tabLayout.setupWithViewPager(viewPager);
+
+        User user = new User("","", "","", "");
+
     }
 
     public void logIn(View view){
