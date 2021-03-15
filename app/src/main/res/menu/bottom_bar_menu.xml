@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/maps"
+        android:title="@string/map"
+        android:icon="@drawable/ic_place"
+        app:cnb_iconColor="@color/red"/>
+    <item android:id="@+id/cars"
+        android:title="@string/car"
+        android:icon="@drawable/ic_car"
+        app:cnb_iconColor="@color/red"/>
+    <item android:id="@+id/orders"
+        android:title="@string/orders"
+        android:icon="@drawable/ic_cart"
+        app:cnb_iconColor="@color/red"/>
+    <item android:id="@+id/profiles"
+        android:title="@string/profile"
+        android:icon="@drawable/ic_name"
+        app:cnb_iconColor="@color/red"/>
+</menu>

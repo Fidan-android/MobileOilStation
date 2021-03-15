@@ -32,6 +32,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     ProgressBar mProgressBar;
     private int progressInt = 0;
     private final Handler handler = new Handler();
+    private Thread thread;
 
     ConnectivityManager cm;
 
@@ -50,6 +51,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         //Check internet off/on
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            assert cm != null;
             cm.registerDefaultNetworkCallback(new NetworkCallback() {
                 @Override
                 public void onAvailable(@NonNull Network network) {
@@ -58,7 +60,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                         public void run() {
                             startNewThread();
                         }
-                    }, 800);
+                    }, 200);
                 }
 
                 @Override
@@ -79,7 +81,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     public void startNewThread() {
-        new Thread(new Runnable() {
+        thread = new Thread(new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void run() {
@@ -106,7 +108,9 @@ public class SplashScreenActivity extends AppCompatActivity {
                     ex.printStackTrace();
                 }
             }
-        }).start();
+        });
+
+        thread.start();
     }
 
     public void showToastAboutLossInternet() {
@@ -121,6 +125,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (back_pressed + 1000 > System.currentTimeMillis()) {
+            progressInt = 0;
             finish();
         } else {
             Toast.makeText(this, "Press once again to exit!",

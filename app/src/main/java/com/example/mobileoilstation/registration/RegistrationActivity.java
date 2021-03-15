@@ -7,23 +7,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.media.VolumeShaper;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.example.mobileoilstation.R;
-import com.example.mobileoilstation.classes.User;
+import com.example.mobileoilstation.model.User;
 import com.example.mobileoilstation.login.LoginActivity;
 import com.google.android.material.tabs.TabLayout;
 
@@ -46,7 +39,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         tabLayout.setupWithViewPager(viewPager);
 
-        User user = new User("","", "","", "");
+        User user = new User("","", "","");
 
     }
 

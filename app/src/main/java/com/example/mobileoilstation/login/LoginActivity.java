@@ -2,6 +2,7 @@ package com.example.mobileoilstation.login;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,13 +18,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.mobileoilstation.AppActivity;
+import com.example.mobileoilstation.HomeActivity;
 import com.example.mobileoilstation.R;
+import com.example.mobileoilstation.databinding.ActivityHomeBinding;
 import com.example.mobileoilstation.registration.RegistrationActivity;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginActivity extends AppCompatActivity {
-    
-    ConnectivityManager cm;
+
+    private ConnectivityManager cm;
+    private boolean isConnect = false;
+
+    @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +64,17 @@ public class LoginActivity extends AppCompatActivity {
         //text watcher
         cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            assert cm != null;
             cm.registerDefaultNetworkCallback(new ConnectivityManager.NetworkCallback(){
                 @Override
                 public void onAvailable(@NonNull Network network) {
-                    sendLogin.setEnabled(true);
+                    isConnect = true;
                 }
 
                 @Override
                 public void onLost(@NonNull Network network) {
                     Toast.makeText(LoginActivity.this, "Включите интрнет", Toast.LENGTH_LONG).show();
-                    sendLogin.setEnabled(false);
+                    isConnect = false;
                 }
             });
         }
@@ -74,6 +83,15 @@ public class LoginActivity extends AppCompatActivity {
     public void registerNow(View view){
         startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
         this.finish();
+    }
+
+    public void logIn(View view){
+        if (isConnect){
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            this.finish();
+        } else {
+            Snackbar.make(view, "Включите интернет соединение", Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     private long backPressed = 0;
