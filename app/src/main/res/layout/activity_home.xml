@@ -13,13 +13,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
-        android:background="@color/white">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Карта"
-            android:layout_centerInParent="true"
-            android:textSize="25sp"/>
+        android:background="@color/white"
+        android:layout_above="@id/bottom_bar">
+
+        <com.yandex.mapkit.mapview.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/mapLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true">
+                <ImageButton
+                    android:id="@+id/addOrder"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/ic_add_order"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/float_image_button"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_above="@id/myLocation"
+                    android:elevation="4dp"/>
+                <ImageButton
+                    android:id="@+id/myLocation"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/ic_location"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/float_image_button"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:elevation="4dp"/>
+            </RelativeLayout>
+        </com.yandex.mapkit.mapview.MapView>
 
     </RelativeLayout>
 
@@ -36,6 +69,20 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+
+        <TextView
+            android:id="@+id/textCarNoExists"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginHorizontal="40dp"
+            android:text="@string/car_no_exists"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="italic"
+            android:textColor="@color/black"/>
+
         <ImageButton
             android:id="@+id/addCar"
             android:layout_width="56dp"
@@ -47,7 +94,8 @@
             android:clickable="true"
             android:focusable="true"
             android:layout_marginBottom="20dp"
-            android:layout_marginEnd="20dp"/>
+            android:layout_marginEnd="20dp"
+            android:elevation="4dp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -56,12 +104,40 @@
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_bar"
         android:visibility="invisible">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Заказы"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvOrders"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:textSize="25sp"/>
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+
+        <TextView
+            android:id="@+id/textOrderNoExists"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginHorizontal="40dp"
+            android:text="@string/orders_no_exists"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="italic"
+            android:textColor="@color/black"/>
+
+        <ImageButton
+            android:id="@+id/addNewOrder"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_add_order"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:elevation="4dp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -69,7 +145,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_bar"
-        android:visibility="invisible">
+        android:visibility="visible">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

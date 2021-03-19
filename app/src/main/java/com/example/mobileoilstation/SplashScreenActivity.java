@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.mobileoilstation.login.LoginActivity;
 import com.example.mobileoilstation.registration.RegistrationActivity;
+import com.yandex.mapkit.MapKitFactory;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -87,10 +88,11 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
                 try {
                     while (progressInt < 100 && isOnline(SplashScreenActivity.this)) {
-                        progressInt += 10;
-
+                        progressInt += 20;
                         Thread.sleep(300);
-
+                        if (progressInt == 80) {
+                            onStartActivity();
+                        }
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -98,12 +100,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                             }
                         });
                     }
-                    if (!checkFirstStart() && isOnline(SplashScreenActivity.this)) {
-                        startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));
-                        finish();
-                    } else if (!checkToken() && isOnline(SplashScreenActivity.this)) {
-                        finish();
-                    }
+
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -111,6 +108,28 @@ public class SplashScreenActivity extends AppCompatActivity {
         });
 
         thread.start();
+    }
+
+    private void onStartActivity(){
+        if (isOnline(SplashScreenActivity.this)) {
+            if (checkToken()) {
+                startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));
+                finish();
+            } else {
+                startActivity(new Intent(SplashScreenActivity.this, HomeActivity.class));
+                finish();
+            }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     public void showToastAboutLossInternet() {
@@ -134,14 +153,11 @@ public class SplashScreenActivity extends AppCompatActivity {
         back_pressed = System.currentTimeMillis();
     }
 
-    public boolean checkFirstStart() {
-        SharedPreferences sharedPreferences = getSharedPreferences(getResources().getString(R.string.app_name), MODE_PRIVATE);
-        return sharedPreferences.getBoolean("firstStart", false);
-    }
-
     public boolean checkToken() {
-        SharedPreferences sharedPreferences = getSharedPreferences(getResources().getString(R.string.app_name), MODE_PRIVATE);
-        return sharedPreferences.getLong("token", 0) != 0;
+        SharedPreferences sharedPreferences = getSharedPreferences(getResources().getString(R.string.app_name), 0);
+        String token = sharedPreferences.getString("token", "");
+        System.out.println(token);
+        return token.equals("");
     }
 
     public boolean isOnline(Context context) {

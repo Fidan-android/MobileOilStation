@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Мобильная АЗС</string>
+    <string name="apiKey">5417e415-05e4-4da1-8531-37e40ac14da9</string>
     <string name="password">Password</string>
     <string name="number">Number</string>
     <string name="enter">Войти</string>
@@ -18,6 +19,8 @@
             Компания
         </item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login_hint">Введите E-mail</string>
     <string name="enter_form">Заполните форму регистрации</string>
     <string name="phone_hint">Введите телефон (без +7\\8)</string>
@@ -35,5 +38,8 @@
     <string name="num_is">Номер:</string>
     <string name="color_is">Цвет:</string>
     <string name="delete">Удалить</string>
+    <string name="edit">Изменить</string>
     <string name="add_car">add_car</string>
+    <string name="car_no_exists">К сожалению, у Вас пока нет личных автомобилей</string>
+    <string name="orders_no_exists">К сожалению, Вы еще ничего не заказывали.</string>
 </resources>

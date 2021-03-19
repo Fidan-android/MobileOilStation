@@ -39,7 +39,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         tabLayout.setupWithViewPager(viewPager);
 
-        User user = new User("","", "","");
+        User user = new User("","", "","", null, null, null, null);
 
     }
 

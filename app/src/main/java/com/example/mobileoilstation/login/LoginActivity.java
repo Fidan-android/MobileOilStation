@@ -1,16 +1,21 @@
 package com.example.mobileoilstation.login;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RequiresPermission;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Application;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -21,15 +26,29 @@ import android.widget.Toast;
 import com.example.mobileoilstation.AppActivity;
 import com.example.mobileoilstation.HomeActivity;
 import com.example.mobileoilstation.R;
+import com.example.mobileoilstation.api.ApiRequest;
 import com.example.mobileoilstation.databinding.ActivityHomeBinding;
+import com.example.mobileoilstation.databinding.ActivityLoginBinding;
+import com.example.mobileoilstation.model.Login;
+import com.example.mobileoilstation.model.Message;
+import com.example.mobileoilstation.model.Token;
+import com.example.mobileoilstation.model.User;
 import com.example.mobileoilstation.registration.RegistrationActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
     private ConnectivityManager cm;
     private boolean isConnect = false;
+    private ActivityLoginBinding binding;
+    private String BASE_URL = "http://mobile-oil-station.ru";
 
     @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -37,31 +56,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.activity_login);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        EditText phone = findViewById(R.id.login);
-        TextInputLayout ePhone = findViewById(R.id.eLogin);
-        Button sendLogin = findViewById(R.id.sendLogIn);
-        //text watcher
-        phone.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                ePhone.setError(null);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!(s.toString().trim().matches("(\\+7)(\\d{10})|(8\\d{10})"))){
-                    ePhone.setError("Неверный телефон");
-                }
-            }
-        });
-        //text watcher
         cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             assert cm != null;
@@ -85,10 +82,45 @@ public class LoginActivity extends AppCompatActivity {
         this.finish();
     }
 
+    private void showDialog(){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.create().show();
+    }
+
     public void logIn(View view){
         if (isConnect){
-            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-            this.finish();
+            if (!binding.login.getText().toString().equals("") && !binding.password.getText().toString().equals("")) {
+                ApiRequest retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build()
+                        .create(ApiRequest.class);
+
+                Call<Token> service = retrofit.logIn(new Login(binding.login.getText().toString(), binding.password.getText().toString()));
+                service.enqueue(new Callback<Token>() {
+                    @Override
+                    public void onResponse(Call<Token> call, Response<Token> response) {
+                        if (response.code() != 403){
+                            showDialog();
+                            String token = response.body().getToken();
+                            System.out.println(token);
+                            SharedPreferences sharedPreferences = getSharedPreferences(getResources().getString(R.string.app_name), 0);
+                            SharedPreferences.Editor ed = sharedPreferences.edit();
+                            ed.putString("token", token);
+                            ed.apply();
+                            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                            finish();
+                        } else {
+                            Snackbar.make(binding.sendLogIn.getRootView(), "Такого пользователя не существует", Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Token> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+            }
         } else {
             Snackbar.make(view, "Включите интернет соединение", Snackbar.LENGTH_SHORT).show();
         }

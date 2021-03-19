@@ -68,11 +68,10 @@
                         android:id="@+id/login"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/number"
+                        android:hint="@string/email"
                         android:fontFamily="@font/font1"
-                        android:inputType="phone"
-                        android:singleLine="true"
-                        android:maxLength="12"/>
+                        android:inputType="textEmailAddress"
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
