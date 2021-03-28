@@ -1,5 +1,7 @@
 package com.example.mobileoilstation.registration;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,12 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mobileoilstation.R;
+import com.example.mobileoilstation.databinding.FragmentUserBinding;
+import com.example.mobileoilstation.login.LoginActivity;
 
 public class UserFragment extends Fragment {
 
+    FragmentUserBinding binding;
+    private Activity activity;
 
-    public UserFragment() {
-        
+    public UserFragment(Activity activity) {
+        this.activity = activity;
     }
 
     @Override
@@ -25,7 +31,11 @@ public class UserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user, container, false);
-        return view;
+        binding = FragmentUserBinding.inflate(inflater, container, false);
+        binding.backLogin.setOnClickListener((v) -> {
+            startActivity(new Intent(activity, LoginActivity.class));
+            activity.finish();
+        });
+        return binding.getRoot();
     }
 }

@@ -3,9 +3,11 @@ package com.example.mobileoilstation
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.ContextMenu
@@ -25,12 +27,16 @@ import com.example.mobileoilstation.model.Message
 import com.example.mobileoilstation.model.Order
 import com.example.mobileoilstation.model.User
 import com.example.mobileoilstation.tracker.TrackerGPS
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
 import com.yandex.mapkit.Animation
+import com.yandex.mapkit.MapKit
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
 import com.yandex.mapkit.mapview.MapView
+import com.yandex.mapkit.user_location.UserLocationLayer
 import com.yandex.runtime.image.ImageProvider
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -46,11 +52,16 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding : ActivityHomeBinding
     private val BaseUrl: String = "http://mobile-oil-station.ru"
     private lateinit var mapView: MapView
-    private var backPressed: Long = 0;
+    private var backPressed: Long = 0
     private lateinit var gps: TrackerGPS
+    private lateinit var fusedLocation: FusedLocationProviderClient
     private var cars: MutableList<Car>? = null
     private var orders: MutableList<Order>? = null
     private lateinit var user: User
+    private var FINAL_LONGITUDE: Double = 54.44
+    private var FINAL_LATITUDE: Double = 55.58
+
+    //SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         MapKitFactory.initialize(this)
@@ -69,14 +80,15 @@ class HomeActivity : AppCompatActivity() {
                     mapView.onStart()
                 }
                 R.id.cars -> {
+                    binding.addCar.isEnabled = true;
                     if (cars != null && cars!!.size > 0) {
                         binding.rvCars.visibility = View.VISIBLE
                         binding.textCarNoExists.visibility = View.INVISIBLE
                         binding.rvCars.adapter = CarAdapter(this, this, cars!!)
                         binding.rvCars.layoutManager = GridLayoutManager(this, 2)
                     } else {
-                        binding.rvCars.visibility = View.INVISIBLE
-                        binding.textCarNoExists.visibility = View.VISIBLE
+                        binding.rvCars.visibility = View.VISIBLE
+                        binding.textCarNoExists.visibility = View.INVISIBLE
                     }
                     this.bottomBarSelect(car = View.VISIBLE)
                     mapView.onStop()
@@ -105,19 +117,18 @@ class HomeActivity : AppCompatActivity() {
         binding.bottomBar.setItemEnabled(R.id.maps, true);
 
         binding.addCar.setOnClickListener {
-            Snackbar.make(it, "Adding", Snackbar.LENGTH_SHORT).show()
+            startActivity(Intent(this, AddCarActivity::class.java))
+            binding.addCar.isEnabled = false;
+            //finish()
         }
 
         binding.addNewOrder.setOnClickListener {
             Snackbar.make(it, "Adding", Snackbar.LENGTH_SHORT).show()
         }
 
+
         binding.myLocation.setOnClickListener {
-            mapView.map.move(
-                    CameraPosition(Point(gps.latitude, gps.longitude), 15.0f, 0.0f, 0.0f),
-                    Animation(Animation.Type.SMOOTH, 2f),
-                    null)
-            mapView.map.mapObjects.addPlacemark(Point(gps.longitude, gps.latitude))
+            checkGpsPermission()
         }
     }
 
@@ -126,6 +137,7 @@ class HomeActivity : AppCompatActivity() {
 
         val preferences: SharedPreferences = getSharedPreferences(resources.getString(R.string.app_name), 0)
         val token: String = preferences.getString("token", "")!!
+        println(token)
 
         val client: OkHttpClient = OkHttpClient.Builder()
                 .addInterceptor {
@@ -149,7 +161,7 @@ class HomeActivity : AppCompatActivity() {
                 cars = if (response.body() != null) {
                     response.body() as MutableList<Car>
                 } else {
-                    null
+                    arrayListOf()
                 }
             }
 
@@ -177,7 +189,7 @@ class HomeActivity : AppCompatActivity() {
         val serviceProfile = retrofit.getProfileInfo()
         serviceProfile.enqueue(object: Callback<User>{
             override fun onResponse(call: Call<User>, response: Response<User>) {
-                user = response.body()!! as User
+                user = response.body() as User
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
@@ -193,12 +205,21 @@ class HomeActivity : AppCompatActivity() {
         val access_fine_location = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
 
         if (access_fine_location == PackageManager.PERMISSION_GRANTED) {
-            gps = TrackerGPS(this)
-            gps.getLocation()
-            mapView.map.mapObjects.addPlacemark(Point(gps.longitude, gps.latitude))
+            fusedLocation = LocationServices.getFusedLocationProviderClient(this)
+            fusedLocation.lastLocation
+                    .addOnSuccessListener { location: Location? ->
+                        if (location != null) {
+                            FINAL_LATITUDE = location.latitude
+                        }
+                        if (location != null) {
+                            FINAL_LONGITUDE = location.longitude
+                        }
+                    }
+            println("latitude: $FINAL_LATITUDE and longitude: $FINAL_LONGITUDE")
+            mapView.map.mapObjects.addPlacemark(Point(FINAL_LATITUDE, FINAL_LONGITUDE))
             mapView.map.move(
-                    CameraPosition(Point(gps.latitude, gps.longitude), 15.0f, 0.0f, 0.0f),
-                    Animation(Animation.Type.LINEAR, 2f),
+                    CameraPosition(Point(FINAL_LATITUDE, FINAL_LONGITUDE), 15.0f, 0.0f, 0.0f),
+                    Animation(Animation.Type.SMOOTH, 2.5f),
                     null)
         } else {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 0)

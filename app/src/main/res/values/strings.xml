@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Мобильная АЗС</string>
     <string name="apiKey">5417e415-05e4-4da1-8531-37e40ac14da9</string>
-    <string name="password">Password</string>
-    <string name="number">Number</string>
+    <string name="password">Пароль</string>
+    <string name="number">Телефон</string>
     <string name="enter">Войти</string>
     <string name="register">Зарегистрироваться</string>
     <string name="next">Дальше</string>
@@ -35,12 +35,16 @@
     <string name="profile">Профиль</string>
     <string name="mark_is">Марка</string>
     <string name="model_is">Модель</string>
-    <string name="num_is">Номер:</string>
-    <string name="color_is">Цвет:</string>
+    <string name="num_is">Гос. номер</string>
+    <string name="color_is">Цвет</string>
     <string name="delete">Удалить</string>
     <string name="edit">Изменить</string>
     <string name="add_car">add_car</string>
     <string name="email">E-mail</string>
     <string name="car_no_exists">К сожалению, у Вас пока нет личных автомобилей</string>
     <string name="orders_no_exists">К сожалению, Вы еще ничего не заказывали.</string>
+    <string name="adding">Добавить</string>
+    <string name="new_car">Добавление автомобиля</string>
+    <string name="required">Обязтельное*</string>
+    <string name="loading">Загрузка</string>
 </resources>

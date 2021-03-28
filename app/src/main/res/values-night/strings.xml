@@ -42,4 +42,8 @@
     <string name="add_car">add_car</string>
     <string name="car_no_exists">К сожалению, у Вас пока нет личных автомобилей</string>
     <string name="orders_no_exists">К сожалению, Вы еще ничего не заказывали.</string>
+    <string name="adding">Добавить</string>
+    <string name="new_car">Добавление автомобиля</string>
+    <string name="required">Обязтельное*</string>
+    <string name="loading">Загрузка</string>
 </resources>

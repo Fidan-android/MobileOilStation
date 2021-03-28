@@ -90,9 +90,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                     while (progressInt < 100 && isOnline(SplashScreenActivity.this)) {
                         progressInt += 20;
                         Thread.sleep(300);
-                        if (progressInt == 80) {
-                            onStartActivity();
-                        }
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -100,7 +97,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                             }
                         });
                     }
-
+                    onStartActivity();
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

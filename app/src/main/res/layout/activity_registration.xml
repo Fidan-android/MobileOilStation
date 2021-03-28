@@ -8,18 +8,25 @@
     android:id="@+id/main"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:background="@color/df_danger"
-            android:layout_weight="3"
             android:orientation="vertical"
-            android:gravity="center">
+            android:paddingBottom="20dp">
+
+            <ImageButton
+                android:id="@+id/back_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_back"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="2dp"
+                android:layout_gravity="top"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"/>
 
             <ImageView
                 android:id="@+id/imageViewLogo"
@@ -27,7 +34,8 @@
                 android:layout_height="128dp"
                 android:src="@drawable/icon"
                 android:layout_gravity="center"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="20dp"
+                android:elevation="3dp"/>
 
             <TextView
                 android:layout_height="wrap_content"
@@ -36,15 +44,15 @@
                 android:layout_width="wrap_content"
                 android:text="@string/app_name"
                 android:textColor="@color/white"
-                android:fontFamily="@font/font2"/>
+                android:fontFamily="@font/font2"
+                android:layout_gravity="center"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5"
-            android:background="@color/formBg"
+            android:layout_height="match_parent"
+            android:background="@color/white"
             android:orientation="vertical">
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs"
@@ -52,12 +60,11 @@
                 android:layout_height="wrap_content"
                 app:tabTextColor="@color/red"
                 app:tabIndicatorColor="@color/red"
-                android:background="@color/formBg"/>
+                android:background="@color/white"/>
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </LinearLayout>
-    </LinearLayout>
 </LinearLayout>

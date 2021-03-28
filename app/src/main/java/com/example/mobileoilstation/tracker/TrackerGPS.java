@@ -18,8 +18,8 @@ public class TrackerGPS extends Service implements LocationListener {
     boolean canGetLocation = false;
 
     Location location;
-    double latitude;
-    double longitude;
+    double latitude = 0.0;
+    double longitude = 0.0;
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60;

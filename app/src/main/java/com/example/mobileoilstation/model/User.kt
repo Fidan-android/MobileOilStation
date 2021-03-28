@@ -9,4 +9,5 @@ data class User (val email: String,
                  val created: Date? = null,
                  val firstname: String? = null,
                  val lastname: String? = null,
-                 val photo: String? = null)
+                 val photo: String? = null) {
+}

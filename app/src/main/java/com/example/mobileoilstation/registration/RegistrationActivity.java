@@ -16,8 +16,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mobileoilstation.R;
+import com.example.mobileoilstation.databinding.ActivityRegistrationBinding;
 import com.example.mobileoilstation.model.User;
 import com.example.mobileoilstation.login.LoginActivity;
+import com.example.mobileoilstation.utils.ShowDialog;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -26,11 +28,13 @@ import java.util.List;
 
 public class RegistrationActivity extends AppCompatActivity {
 
+    ActivityRegistrationBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.activity_registration);
+        binding = ActivityRegistrationBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         ViewPager viewPager = findViewById(R.id.viewpager);
@@ -39,7 +43,15 @@ public class RegistrationActivity extends AppCompatActivity {
 
         tabLayout.setupWithViewPager(viewPager);
 
-        User user = new User("","", "","", null, null, null, null);
+        User user = new User("","", "","", null, null, null,null);
+
+
+        binding.backHome.setOnClickListener((v) -> {
+            ShowDialog.showDialog(this);
+            startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+            finish();
+        });
+
 
     }
 
@@ -62,8 +74,8 @@ public class RegistrationActivity extends AppCompatActivity {
     private void prepareViewPager(ViewPager viewPager){
         ViewAdapter adapter = new ViewAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(new UserFragment(), "Физическое лицо");
-        adapter.addFragment(new CompanyFragment(), "Компания");
+        adapter.addFragment(new UserFragment(this), "Физическое лицо");
+        adapter.addFragment(new CompanyFragment(this), "Компания");
 
         viewPager.setAdapter(adapter);
     }

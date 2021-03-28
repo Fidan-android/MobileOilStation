@@ -1,13 +1,11 @@
 package com.example.mobileoilstation.login;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -15,27 +13,18 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.mobileoilstation.AppActivity;
 import com.example.mobileoilstation.HomeActivity;
 import com.example.mobileoilstation.R;
 import com.example.mobileoilstation.api.ApiRequest;
-import com.example.mobileoilstation.databinding.ActivityHomeBinding;
 import com.example.mobileoilstation.databinding.ActivityLoginBinding;
 import com.example.mobileoilstation.model.Login;
-import com.example.mobileoilstation.model.Message;
 import com.example.mobileoilstation.model.Token;
-import com.example.mobileoilstation.model.User;
 import com.example.mobileoilstation.registration.RegistrationActivity;
+import com.example.mobileoilstation.utils.ShowDialog;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputLayout;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -78,16 +67,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void registerNow(View view){
+        ShowDialog.showDialog(this);
+        view.setEnabled(false);
         startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
         this.finish();
     }
 
-    private void showDialog(){
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.create().show();
-    }
-
     public void logIn(View view){
+        ShowDialog.showDialog(this);
+        view.setEnabled(false);
         if (isConnect){
             if (!binding.login.getText().toString().equals("") && !binding.password.getText().toString().equals("")) {
                 ApiRequest retrofit = new Retrofit.Builder()
@@ -101,7 +89,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Token> call, Response<Token> response) {
                         if (response.code() != 403){
-                            showDialog();
                             String token = response.body().getToken();
                             System.out.println(token);
                             SharedPreferences sharedPreferences = getSharedPreferences(getResources().getString(R.string.app_name), 0);
